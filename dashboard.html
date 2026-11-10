@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeskHub - Client Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#030712] text-slate-100 min-h-screen selection:bg-blue-600 selection:text-white">
+    <div class="flex flex-col md:flex-row min-h-screen">
+        
+        <aside class="w-full md:w-64 bg-[#080d1a] border-b md:border-b-0 md:border-r border-slate-800/80 p-5 flex flex-col justify-between shrink-0">
+            <div>
+                <div class="flex items-center gap-3 px-2 py-2 bg-slate-900/40 rounded-xl border border-slate-800">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-600 flex items-center justify-center font-bold text-white shadow-lg shadow-emerald-900/30">
+                        AB
+                    </div>
+                    <div>
+                        <strong class="block text-white text-sm font-semibold tracking-tight">Arab Bank</strong>
+                        <span class="text-xs text-slate-400 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Branch #104
+                        </span>
+                    </div>
+                </div>
+
+                <nav class="mt-8 flex flex-row md:flex-col gap-1.5 overflow-x-auto">
+                    <a href="dashboard.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-blue-600/10 text-blue-400 border border-blue-500/20 font-medium text-sm transition">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="assets.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/40 font-medium text-sm transition">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>My Assets</span>
+                    </a>
+                    <a href="settings.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/40 font-medium text-sm transition">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="hidden md:block pt-4 border-t border-slate-800/80">
+                <a href="login.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-red-400 hover:bg-red-500/10 transition">
+                    <i data-lucide="log-out" class="w-4 h-4"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-6 md:p-10 overflow-y-auto">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-white">Branch Overview</h1>
+                    <p class="text-sm text-slate-400 mt-1">Incident tracking and infrastructure requests</p>
+                </div>
+                <button id="openModalBtn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition shadow-lg shadow-blue-600/25 cursor-pointer">
+                    <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                    <span>Open New Ticket</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+                <div class="bg-[#0b1222] border border-slate-800/80 rounded-2xl p-5 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Active Tickets</span>
+                        <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                            <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                    <div id="statActive" class="text-3xl font-bold text-blue-400 mt-3">0</div>
+                </div>
+
+                <div class="bg-[#0b1222] border border-slate-800/80 rounded-2xl p-5 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Resolved</span>
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                    <div id="statResolved" class="text-3xl font-bold text-emerald-400 mt-3">0</div>
+                </div>
+
+                <div class="bg-[#0b1222] border border-slate-800/80 rounded-2xl p-5 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Assets</span>
+                        <div class="w-8 h-8 rounded-lg bg-slate-500/10 text-slate-300 flex items-center justify-center">
+                            <i data-lucide="server" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                    <div id="statAssets" class="text-3xl font-bold text-white mt-3">5</div>
+                </div>
+            </div>
+
+            <div class="bg-[#0b1222] border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl">
+                <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+                    <h2 class="text-sm font-semibold text-white">Recent Branch Tickets</h2>
+                    <span class="text-xs text-slate-400">Auto-synced</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-950/40 text-slate-400 text-xs uppercase border-b border-slate-800 tracking-wider">
+                            <tr>
+                                <th class="px-6 py-3.5">Ticket ID</th>
+                                <th class="px-6 py-3.5">Asset</th>
+                                <th class="px-6 py-3.5">Priority</th>
+                                <th class="px-6 py-3.5">Status</th>
+                                <th class="px-6 py-3.5">Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ticketsList" class="divide-y divide-slate-800 text-slate-300">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="ticketModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#0b1222] border border-slate-800 rounded-2xl w-full max-w-lg p-6 shadow-2xl">
+            <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-800">
+                <h3 class="text-base font-bold text-white">Open New Ticket</h3>
+                <span class="text-xs text-slate-400">Branch incident</span>
+            </div>
+            
+            <form id="newTicketForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Category</label>
+                    <select name="category" required class="w-full bg-[#030712] border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                        <option value="" disabled selected>Select category...</option>
+                        <option value="Hardware">Hardware</option>
+                        <option value="Software">Software</option>
+                        <option value="Network">Network</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Asset ID</label>
+                    <select name="asset_id" id="assetSelect" required class="w-full bg-[#030712] border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Priority</label>
+                    <select name="priority" required class="w-full bg-[#030712] border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                        <option value="P1">P1 - Critical</option>
+                        <option value="P2">P2 - Medium</option>
+                        <option value="P3" selected>P3 - Standard</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Description</label>
+                    <textarea name="description" rows="3" required placeholder="Detailed failure symptoms..." class="w-full bg-[#030712] border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-blue-500"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-800">
+                    <button type="button" id="closeModalBtn" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-white cursor-pointer">Cancel</button>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-xl text-sm font-semibold transition cursor-pointer">Submit Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
